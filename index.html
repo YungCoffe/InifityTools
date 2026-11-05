@@ -1,287 +1,114 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Infinity Tools - Central de Downloads</title>
-  <!-- Tailwind CSS CDN -->
+  <title>Infinity Tools - Download Center</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Fonts - Inter & JetBrains Mono -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
   <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #f8fafc;
-      color: #0f172a;
+    @keyframes pulse-red {
+      0%, 100% { box-shadow: 0 0 15px rgba(220, 38, 38, 0.4); }
+      50% { box-shadow: 0 0 25px rgba(220, 38, 38, 0.7); }
     }
-    .font-mono {
-      font-family: 'JetBrains Mono', monospace;
-    }
-    .red-glow {
-      box-shadow: 0 10px 40px -10px rgba(220, 38, 38, 0.2);
-    }
-    .red-button-glow {
-      box-shadow: 0 4px 20px rgba(220, 38, 38, 0.35);
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .red-button-glow:hover {
-      box-shadow: 0 8px 30px rgba(220, 38, 38, 0.5);
-      transform: translateY(-2px);
-    }
-    .bg-grid-red {
-      background-size: 32px 32px;
-      background-image: 
-        linear-gradient(to right, rgba(220, 38, 38, 0.03) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(220, 38, 38, 0.03) 1px, transparent 1px);
-    }
-    @keyframes pulse-soft {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.05); opacity: 0.85; }
-    }
-    .animate-pulse-soft {
-      animation: pulse-soft 3s infinite ease-in-out;
-    }
+    .btn-red-pulse { animation: pulse-red 2.5s infinite; }
   </style>
 </head>
-<body class="min-h-screen bg-slate-50 text-slate-900 flex flex-col justify-between bg-grid-red relative overflow-x-hidden antialiased selection:bg-red-600 selection:text-white">
+<body class="bg-stone-50 text-stone-800 min-h-screen flex flex-col justify-between font-sans antialiased selection:bg-red-500 selection:text-white">
 
-  <!-- Glows de fundo suave -->
-  <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-red-500/10 rounded-full blur-[120px] pointer-events-none"></div>
-  <div class="fixed bottom-0 right-0 w-[400px] h-[400px] bg-red-500/5 rounded-full blur-[100px] pointer-events-none"></div>
-
-  <!-- Cabeçalho Principal -->
-  <header class="w-full border-b border-slate-200/80 bg-white/80 backdrop-blur-md sticky top-0 z-50">
-    <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+  <nav class="border-b border-stone-200 bg-white/80 backdrop-blur-md sticky top-0 z-40">
+    <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
       <div class="flex items-center space-x-3">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-red-600 to-rose-700 text-white flex items-center justify-center font-black text-xl shadow-md shadow-red-500/30">
+        <div class="w-10 h-10 rounded-xl bg-red-600 text-white flex items-center justify-center font-black text-xl shadow-md">
           <i class="fa-solid fa-infinity"></i>
         </div>
         <div>
-          <span class="font-extrabold tracking-tight text-lg text-slate-900 block leading-none">Infinity Tools</span>
-          <span class="text-[10px] font-bold tracking-wider text-red-600 uppercase flex items-center gap-1 mt-0.5">
-            <i class="fa-brands fa-discord text-xs"></i> Servidor Oficial Discord
-          </span>
+          <h1 class="font-bold text-stone-900 tracking-tight text-lg leading-none">Infinity Tools</h1>
+          <span class="text-xs text-red-600 font-medium">Servidor Oficial Discord</span>
         </div>
       </div>
-      <button id="toggle-settings-btn" class="text-xs font-semibold text-slate-600 hover:text-red-600 bg-slate-100 hover:bg-red-50 border border-slate-200 hover:border-red-200 px-3.5 py-2 rounded-xl flex items-center gap-2 transition-all">
-        <i class="fa-solid fa-gear text-red-600"></i>
-        <span>Alterar Link</span>
+      <button onclick="toggleConfig()" class="text-stone-400 hover:text-red-600 transition p-2 rounded-lg hover:bg-stone-100" title="Configurar Links">
+        <i class="fa-solid fa-gear text-lg"></i>
       </button>
     </div>
-  </header>
+  </nav>
 
-  <!-- Conteúdo Central -->
-  <main class="flex-1 flex items-center justify-center p-4 sm:p-6 my-6 z-10">
-    <div class="w-full max-w-md sm:max-w-lg">
-      
-      <!-- Card Principal -->
-      <div class="bg-white border border-slate-200/90 rounded-3xl p-6 sm:p-8 shadow-xl red-glow relative overflow-hidden">
-        
-        <!-- Faixa Decorativa Superior -->
-        <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-red-500 via-red-600 to-rose-600"></div>
+  <main class="max-w-xl mx-auto px-4 py-12 flex-1 flex flex-col justify-center w-full">
+    <div class="bg-white border border-stone-200 rounded-3xl p-6 sm:p-8 shadow-xl shadow-stone-200/50 relative overflow-hidden">
+      <div class="h-2 bg-gradient-to-r from-red-500 via-red-600 to-red-700 absolute top-0 left-0 right-0"></div>
 
-        <!-- Header do Card: Badges -->
-        <div class="flex items-center justify-between mb-6">
-          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-red-50 text-red-700 border border-red-200/80">
-            <span class="w-2 h-2 rounded-full bg-red-600 animate-pulse"></span>
-            Android APK
-          </span>
-          <span class="text-xs font-mono font-bold px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 border border-slate-200">
-            v1.3.0
-          </span>
+      <div class="flex items-center justify-between mb-6">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-red-50 text-red-600 border border-red-100">
+          <span class="w-2 h-2 rounded-full bg-red-600 animate-pulse"></span> APK Verificado
+        </span>
+        <span class="text-xs text-stone-400 font-mono">v1.3.0</span>
+      </div>
+
+      <div class="text-center mb-8">
+        <div class="w-20 h-20 bg-red-50 rounded-2xl mx-auto flex items-center justify-center text-red-600 border border-red-100 mb-4 shadow-inner">
+          <i class="fa-solid fa-robot text-4xl"></i>
         </div>
+        <h2 class="text-2xl font-bold text-stone-900">Aliucord Manager</h2>
+        <p class="text-stone-500 text-sm mt-1">Baixe a versão oficial v1.3.0 recomendada pelo Infinity Tools.</p>
+      </div>
 
-        <!-- Título e Ícone do App -->
-        <div class="flex items-start gap-4 mb-6">
-          <div class="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-red-600 to-rose-700 rounded-2xl flex items-center justify-center shrink-0 shadow-lg shadow-red-600/30 text-white animate-pulse-soft">
-            <i class="fa-solid fa-mobile-screen-button text-3xl sm:text-4xl"></i>
-          </div>
-          <div>
-            <h1 class="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 mb-1">
-              Aliucord Manager
-            </h1>
-            <p class="text-slate-500 text-xs sm:text-sm leading-relaxed font-normal">
-              Gerenciador para instalação de plugins e modificações do Aliucord. Exclusivo da comunidade <strong class="text-slate-700">Infinity Tools</strong>.
-            </p>
-          </div>
+      <!-- Config Panel -->
+      <div id="configPanel" class="hidden mb-6 p-4 bg-stone-50 border border-stone-200 rounded-2xl text-left space-y-3">
+        <div>
+          <label class="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">Link Direto Principal</label>
+          <input type="text" id="urlInput" class="w-full text-xs p-3 border border-stone-300 rounded-xl bg-white focus:outline-none focus:border-red-500 text-stone-700 font-mono" value="https://release-assets.githubusercontent.com/github-production-release-asset/386777925/f4cec701-55e8-44ab-8a25-66a4f15c81aa?sp=r&sv=2018-11-09&sr=b&spr=https&se=2026-11-05T17%3A50%3A40Z&rscd=attachment%3B+filename%3Daliucord-manager-v1.3.0.apk&rsct=application%2Fvnd.android.package-archive&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2026-11-05T16%3A49%3A54Z&ske=2026-11-05T17%3A50%3A40Z&sks=b&skv=2018-11-09&sig=GVyzac9%2BevuGABjsfg3lc9HPEvhxSD50gajSih8Ge5M%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc5Mzg5Nzc2MywibmJmIjoxNzkzODk3NDYzLCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVduct... (Link Cortado pra Visualizar)">
         </div>
-
-        <!-- Especificações do Arquivo -->
-        <div class="grid grid-cols-2 gap-3 mb-6 p-4 rounded-2xl bg-slate-50 border border-slate-200/80 text-xs">
-          <div>
-            <span class="text-slate-400 font-medium block mb-0.5">Arquivo</span>
-            <span class="font-mono text-slate-800 font-semibold truncate block">aliucord-manager-v1.3.0.apk</span>
-          </div>
-          <div>
-            <span class="text-slate-400 font-medium block mb-0.5">Sistema</span>
-            <span class="text-slate-800 font-semibold flex items-center gap-1">
-              <i class="fa-solid fa-microchip text-red-600"></i> Android 7.0+
-            </span>
-          </div>
-          <div>
-            <span class="text-slate-400 font-medium block mb-0.5">Comunidade</span>
-            <span class="text-slate-800 font-semibold flex items-center gap-1">
-              <i class="fa-brands fa-discord text-red-600"></i> Infinity Tools
-            </span>
-          </div>
-          <div>
-            <span class="text-slate-400 font-medium block mb-0.5">Verificação</span>
-            <span id="link-status" class="text-red-600 font-semibold flex items-center gap-1">
-              <i class="fa-solid fa-circle-check text-red-600"></i> Link Ativo
-            </span>
-          </div>
+        <div>
+          <label class="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">Link de Backup (Release Page)</label>
+          <input type="text" id="backupUrlInput" class="w-full text-xs p-3 border border-stone-300 rounded-xl bg-white focus:outline-none focus:border-red-500 text-stone-700 font-mono" value="https://github.com/Aliucord/Manager/releases/tag/v1.3.0">
         </div>
+        <button onclick="updateUrls()" class="w-full py-2 bg-stone-900 text-white text-xs font-semibold rounded-xl hover:bg-black transition">Salvar Alterações</button>
+      </div>
 
-        <!-- Botões de Ação -->
-        <div class="space-y-3 mb-4">
-          <!-- Botão Principal de Download -->
-          <a id="download-btn" 
-             href="" 
-             target="_blank" 
-             download="aliucord-manager-v1.3.0.apk"
-             class="red-button-glow w-full py-4 px-6 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-700 hover:to-rose-700 text-white font-extrabold rounded-2xl flex items-center justify-center gap-3 group text-center tracking-wide">
-            <i class="fa-solid fa-download text-lg group-hover:translate-y-0.5 transition-transform"></i>
-            <span>BAIXAR APK AGORA</span>
-          </a>
+      <div class="space-y-3">
+        <button onclick="iniciarDownload()" class="btn-red-pulse w-full py-4 bg-red-600 hover:bg-red-700 text-white font-bold rounded-2xl flex items-center justify-center gap-3 transition shadow-lg shadow-red-200 cursor-pointer">
+          <i class="fa-solid fa-download text-lg"></i>
+          <span id="btnText">Baixar APK Agora</span>
+        </button>
 
-          <!-- Botão Secundário para Copiar Link -->
-          <button id="copy-btn" class="w-full py-3.5 px-4 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 hover:border-slate-300 rounded-2xl text-xs font-bold flex items-center justify-center gap-2 transition active:scale-[0.99] shadow-sm">
-            <i class="fa-regular fa-copy text-slate-500"></i>
-            <span>Copiar Link Direto</span>
-          </button>
-        </div>
-
-        <!-- Toast de Confirmação -->
-        <div id="toast" class="hidden opacity-0 transition-all duration-300 mb-4 p-3 bg-red-50 border border-red-200 text-red-700 text-xs rounded-xl text-center font-medium flex items-center justify-center gap-2">
-          <i class="fa-solid fa-check text-red-600"></i>
-          <span id="toast-message">Link copiado com sucesso!</span>
-        </div>
-
-        <!-- Painel de Configuração/Edição do Link -->
-        <div id="settings-panel" class="hidden mt-6 pt-6 border-t border-slate-200">
-          <div class="flex items-center justify-between mb-2">
-            <label for="url-input" class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
-              Atualizar URL de Download
-            </label>
-            <span class="text-[10px] text-slate-400 font-mono">Salvo Localmente</span>
-          </div>
-          <p class="text-[11px] text-slate-500 mb-3 leading-relaxed">
-            Caso o token temporário do GitHub expire, insira a nova URL direta abaixo:
-          </p>
-          <div class="flex flex-col gap-2">
-            <textarea id="url-input" rows="3" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono text-slate-800 focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-500/20 transition resize-none"></textarea>
-            <div class="flex gap-2">
-              <button id="save-url-btn" class="flex-1 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition shadow-sm">
-                Salvar Novo Link
-              </button>
-              <button id="reset-url-btn" class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition">
-                Restaurar
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Rodapé do Card -->
-        <div class="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-medium">
-          <span class="flex items-center gap-1">
-            <i class="fa-solid fa-shield-halved text-slate-400"></i> Arquivo Verificado &amp; Limpo
-          </span>
-          <span>Infinity Tools</span>
-        </div>
-
+        <a id="backupBtn" href="https://github.com/Aliucord/Manager/releases/tag/v1.3.0" target="_blank" class="w-full py-3 bg-stone-100 hover:bg-stone-200 text-stone-700 font-semibold rounded-2xl flex items-center justify-center gap-2 text-sm transition">
+          <i class="fa-brands fa-github"></i>
+          <span>Abrir Página de Releases (GitHub)</span>
+        </a>
       </div>
     </div>
   </main>
 
-  <!-- Footer da Página -->
-  <footer class="w-full border-t border-slate-200/80 bg-white/60 py-6 text-center text-xs text-slate-500">
-    <div class="max-w-5xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-3">
-      <p>© Infinity Tools — Servidor Discord</p>
-      <div class="flex items-center gap-2 text-slate-400">
-        <span class="w-2 h-2 rounded-full bg-red-600"></span>
-        <span class="font-medium text-slate-600">Tema Branco &amp; Vermelho</span>
-      </div>
-    </div>
+  <footer class="py-6 text-center text-xs text-stone-400 border-t border-stone-200">
+    <p>© 2026 Infinity Tools. Todos os direitos reservados.</p>
   </footer>
 
-  <!-- Scripts JS -->
   <script>
-    // URL Padrão do Aliucord
-    const DEFAULT_URL = "https://release-assets.githubusercontent.com/github-production-release-asset/386777925/f4cec701-55e8-44ab-8a25-66a4f15c81aa?sp=r&sv=2018-11-09&sr=b&spr=https&se=2026-11-05T17%3A50%3A40Z&rscd=attachment%3B+filename%3Daliucord-manager-v1.3.0.apk&rsct=application%2Fvnd.android.package-archive&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2026-11-05T16%3A49%3A54Z&ske=2026-11-05T17%3A50%3A40Z&sks=b&skv=2018-11-09&sig=GVyzac9%2BevuGABjsfg3lc9HPEvhxSD50gajSih8Ge5M%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc5Mzg5Nzc2MywibmJmIjoxNzkzODk3NDYzLCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.bA6ZOM_aUwOUYRUKoQPUdOoqpFHu8r_rV7tScZ47HVU&response-content-disposition=attachment%3B%20filename%3Daliucord-manager-v1.3.0.apk&response-content-type=application%2Fvnd.android.package-archive";
+    let directUrl = "https://release-assets.githubusercontent.com/github-production-release-asset/386777925/f4cec701-55e8-44ab-8a25-66a4f15c81aa?sp=r&sv=2018-11-09&sr=b&spr=https&se=2026-11-05T17%3A50%3A40Z&rscd=attachment%3B+filename%3Daliucord-manager-v1.3.0.apk&rsct=application%2Fvnd.android.package-archive&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2026-11-05T16%3A49%3A54Z&ske=2026-11-05T17%3A50%3A40Z&sks=b&skv=2018-11-09&sig=GVyzac9%2BevuGABjsfg3lc9HPEvhxSD50gajSih8Ge5M%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc5Mzg5Nzc2MywibmJmIjoxNzkzODk3NDYzLCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.bA6ZOM_aUwOUYRUKoQPUdOoqpFHu8r_rV7tScZ47HVU&response-content-disposition=attachment%3B%20filename%3Daliucord-manager-v1.3.0.apk&response-content-type=application%2Fvnd.android.package-archive";
+    let backupUrl = "https://github.com/Aliucord/Manager/releases/tag/v1.3.0";
 
-    // Elementos
-    const downloadBtn = document.getElementById('download-btn');
-    const copyBtn = document.getElementById('copy-btn');
-    const toggleSettingsBtn = document.getElementById('toggle-settings-btn');
-    const settingsPanel = document.getElementById('settings-panel');
-    const urlInput = document.getElementById('url-input');
-    const saveUrlBtn = document.getElementById('save-url-btn');
-    const resetUrlBtn = document.getElementById('reset-url-btn');
-    const toast = document.getElementById('toast');
-    const toastMessage = document.getElementById('toast-message');
-
-    // Estado da URL
-    let activeUrl = localStorage.getItem('infinity_tools_download_url') || DEFAULT_URL;
-    
-    function setDownloadUrl(url) {
-      activeUrl = url;
-      downloadBtn.setAttribute('href', activeUrl);
-      urlInput.value = activeUrl;
-      localStorage.setItem('infinity_tools_download_url', activeUrl);
+    function toggleConfig() {
+      document.getElementById('configPanel').classList.toggle('hidden');
     }
 
-    // Inicialização
-    setDownloadUrl(activeUrl);
+    function updateUrls() {
+      directUrl = document.getElementById('urlInput').value;
+      backupUrl = document.getElementById('backupUrlInput').value;
+      document.getElementById('backupBtn').href = backupUrl;
+      alert('Links atualizados com sucesso!');
+      toggleConfig();
+    }
 
-    // Toggle das configurações
-    toggleSettingsBtn.addEventListener('click', () => {
-      settingsPanel.classList.toggle('hidden');
-    });
+    function iniciarDownload() {
+      const btnText = document.getElementById('btnText');
+      btnText.innerText = "Iniciando...";
 
-    // Salvar URL
-    saveUrlBtn.addEventListener('click', () => {
-      const val = urlInput.value.trim();
-      if (val) {
-        setDownloadUrl(val);
-        showToast('Link de download atualizado com sucesso!');
-        settingsPanel.classList.add('hidden');
-      }
-    });
+      // Tenta abrir o link direto
+      const win = window.open(directUrl, '_blank');
 
-    // Restaurar Padrão
-    resetUrlBtn.addEventListener('click', () => {
-      setDownloadUrl(DEFAULT_URL);
-      showToast('Link restaurado para o padrão original!');
-      settingsPanel.classList.add('hidden');
-    });
-
-    // Copiar Link
-    copyBtn.addEventListener('click', () => {
-      const tempTextArea = document.createElement("textarea");
-      tempTextArea.value = activeUrl;
-      document.body.appendChild(tempTextArea);
-      tempTextArea.select();
-      document.execCommand("copy");
-      document.body.removeChild(tempTextArea);
-
-      showToast('Link copiado para a área de transferência!');
-    });
-
-    // Notificação Toast
-    function showToast(message) {
-      toastMessage.textContent = message;
-      toast.classList.remove('hidden');
-      setTimeout(() => toast.classList.remove('opacity-0'), 10);
-
+      // Caso o navegador bloqueie popup ou a URL direta dê erro/expire
       setTimeout(() => {
-        toast.classList.add('opacity-0');
-        setTimeout(() => toast.classList.add('hidden'), 300);
+        btnText.innerText = "Baixar APK Agora";
       }, 3000);
     }
   </script>
