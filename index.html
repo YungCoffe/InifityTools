@@ -3,114 +3,333 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Infinity Tools - Download Center</title>
+  <title>Baixar Aliucord Manager v1.3.0 · Infinity Tools</title>
+  <meta name="description" content="Download do Aliucord Manager v1.3.0 (APK) pelo Infinity Tools. Link direto e alternativa pelo GitHub caso o download não inicie.">
+  <meta name="theme-color" content="#dc2626">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <style>
-    @keyframes pulse-red {
-      0%, 100% { box-shadow: 0 0 15px rgba(220, 38, 38, 0.4); }
-      50% { box-shadow: 0 0 25px rgba(220, 38, 38, 0.7); }
+    body {
+      font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background:
+        radial-gradient(60% 45% at 50% -5%, rgba(220, 38, 38, 0.14), transparent 70%),
+        radial-gradient(45% 40% at 105% 105%, rgba(220, 38, 38, 0.10), transparent 70%),
+        #fafaf9;
     }
-    .btn-red-pulse { animation: pulse-red 2.5s infinite; }
+
+    /* Brilho que atravessa o botão de download */
+    @keyframes sheen {
+      0%   { transform: translateX(-120%) skewX(-18deg); }
+      60%  { transform: translateX(220%)  skewX(-18deg); }
+      100% { transform: translateX(220%)  skewX(-18deg); }
+    }
+    .sheen::after {
+      content: "";
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 45%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+      animation: sheen 3.6s ease-in-out infinite;
+    }
+
+    /* Anel pulsante atrás do ícone do app */
+    @keyframes halo {
+      0%, 100% { transform: scale(1);    opacity: .55; }
+      50%      { transform: scale(1.12); opacity: .15; }
+    }
+    .halo { animation: halo 3.4s ease-in-out infinite; }
+
+    @keyframes floaty {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-3px); }
+    }
+    .floaty { animation: floaty 4s ease-in-out infinite; }
+
+    .card-shadow { box-shadow: 0 24px 60px -18px rgba(41, 37, 36, 0.28), 0 2px 8px rgba(41, 37, 36, 0.05); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .sheen::after, .halo, .floaty { animation: none !important; }
+    }
   </style>
 </head>
-<body class="bg-stone-50 text-stone-800 min-h-screen flex flex-col justify-between font-sans antialiased selection:bg-red-500 selection:text-white">
 
-  <nav class="border-b border-stone-200 bg-white/80 backdrop-blur-md sticky top-0 z-40">
-    <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
-      <div class="flex items-center space-x-3">
-        <div class="w-10 h-10 rounded-xl bg-red-600 text-white flex items-center justify-center font-black text-xl shadow-md">
+<body class="text-stone-800 min-h-screen flex flex-col antialiased selection:bg-red-600 selection:text-white">
+
+  <!-- ================= TOPO ================= -->
+  <header class="sticky top-0 z-40 border-b border-stone-200/80 bg-white/80 backdrop-blur-md">
+    <div class="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
+      <div class="flex items-center gap-3">
+        <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-red-500 to-red-700 text-xl font-black text-white shadow-lg shadow-red-600/25">
           <i class="fa-solid fa-infinity"></i>
         </div>
-        <div>
-          <h1 class="font-bold text-stone-900 tracking-tight text-lg leading-none">Infinity Tools</h1>
-          <span class="text-xs text-red-600 font-medium">Servidor Oficial Discord</span>
+        <div class="leading-tight">
+          <h1 class="text-lg font-extrabold tracking-tight text-stone-900">Infinity Tools</h1>
+          <span class="text-xs font-medium text-red-600">Servidor oficial no Discord</span>
         </div>
       </div>
-      <button onclick="toggleConfig()" class="text-stone-400 hover:text-red-600 transition p-2 rounded-lg hover:bg-stone-100" title="Configurar Links">
-        <i class="fa-solid fa-gear text-lg"></i>
-      </button>
+
+      <span class="inline-flex items-center gap-1.5 rounded-full border border-red-100 bg-red-50 px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-red-600">
+        <i class="fa-solid fa-circle-check"></i> Oficial
+      </span>
     </div>
-  </nav>
+  </header>
 
-  <main class="max-w-xl mx-auto px-4 py-12 flex-1 flex flex-col justify-center w-full">
-    <div class="bg-white border border-stone-200 rounded-3xl p-6 sm:p-8 shadow-xl shadow-stone-200/50 relative overflow-hidden">
-      <div class="h-2 bg-gradient-to-r from-red-500 via-red-600 to-red-700 absolute top-0 left-0 right-0"></div>
+  <!-- ================= CONTEÚDO ================= -->
+  <main class="mx-auto w-full max-w-3xl flex-1 px-4 py-10 sm:py-14">
 
-      <div class="flex items-center justify-between mb-6">
-        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-red-50 text-red-600 border border-red-100">
-          <span class="w-2 h-2 rounded-full bg-red-600 animate-pulse"></span> APK Verificado
-        </span>
-        <span class="text-xs text-stone-400 font-mono">v1.3.0</span>
-      </div>
+    <!-- Cartão principal -->
+    <section class="card-shadow relative overflow-hidden rounded-[28px] border border-stone-200 bg-white">
+      <div class="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-red-500 via-red-600 to-rose-700"></div>
 
-      <div class="text-center mb-8">
-        <div class="w-20 h-20 bg-red-50 rounded-2xl mx-auto flex items-center justify-center text-red-600 border border-red-100 mb-4 shadow-inner">
-          <i class="fa-solid fa-robot text-4xl"></i>
+      <div class="p-6 sm:p-10">
+        <!-- Selos -->
+        <div class="mb-7 flex flex-wrap items-center justify-between gap-3">
+          <span class="inline-flex items-center gap-2 rounded-full border border-emerald-100 bg-emerald-50 px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-emerald-700">
+            <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500"></span> APK verificado
+          </span>
+          <span id="releaseTag" class="rounded-full bg-stone-100 px-3 py-1 font-mono text-[11px] font-semibold text-stone-500">v1.3.0</span>
         </div>
-        <h2 class="text-2xl font-bold text-stone-900">Aliucord Manager</h2>
-        <p class="text-stone-500 text-sm mt-1">Baixe a versão oficial v1.3.0 recomendada pelo Infinity Tools.</p>
-      </div>
 
-      <!-- Config Panel -->
-      <div id="configPanel" class="hidden mb-6 p-4 bg-stone-50 border border-stone-200 rounded-2xl text-left space-y-3">
-        <div>
-          <label class="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">Link Direto Principal</label>
-          <input type="text" id="urlInput" class="w-full text-xs p-3 border border-stone-300 rounded-xl bg-white focus:outline-none focus:border-red-500 text-stone-700 font-mono" value="https://release-assets.githubusercontent.com/github-production-release-asset/386777925/f4cec701-55e8-44ab-8a25-66a4f15c81aa?sp=r&sv=2018-11-09&sr=b&spr=https&se=2026-11-05T17%3A50%3A40Z&rscd=attachment%3B+filename%3Daliucord-manager-v1.3.0.apk&rsct=application%2Fvnd.android.package-archive&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2026-11-05T16%3A49%3A54Z&ske=2026-11-05T17%3A50%3A40Z&sks=b&skv=2018-11-09&sig=GVyzac9%2BevuGABjsfg3lc9HPEvhxSD50gajSih8Ge5M%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc5Mzg5Nzc2MywibmJmIjoxNzkzODk3NDYzLCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVduct... (Link Cortado pra Visualizar)">
+        <!-- Ícone + título -->
+        <div class="text-center">
+          <div class="relative mx-auto mb-5 h-24 w-24">
+            <div class="halo absolute inset-0 rounded-[26px] bg-red-500/40 blur-xl"></div>
+            <div class="floaty relative flex h-24 w-24 items-center justify-center rounded-[26px] border border-red-100 bg-gradient-to-br from-red-50 to-white text-red-600 shadow-inner">
+              <i class="fa-solid fa-robot text-4xl"></i>
+            </div>
+          </div>
+
+          <h2 class="text-3xl font-extrabold tracking-tight text-stone-900 sm:text-4xl">Aliucord Manager</h2>
+          <p class="mx-auto mt-2 max-w-md text-sm leading-relaxed text-stone-500">
+            Gerencie o Aliucord no seu celular com instalação em poucos toques. Distribuição oficial do Infinity Tools.
+          </p>
+
+          <!-- Ficha técnica -->
+          <ul class="mx-auto mt-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs font-medium text-stone-500">
+            <li class="inline-flex items-center gap-1.5"><i class="fa-solid fa-tag text-red-500"></i> Versão <span id="metaVersion">1.3.0</span></li>
+            <li class="inline-flex items-center gap-1.5"><i class="fa-brands fa-android text-red-500"></i> Formato APK</li>
+            <li id="sizeItem" style="display:none" class="items-center gap-1.5"><i class="fa-solid fa-hard-drive text-red-500"></i> <span id="metaSize"></span></li>
+            <li class="inline-flex items-center gap-1.5"><i class="fa-brands fa-github text-red-500"></i> Direto do GitHub</li>
+            <li class="inline-flex items-center gap-1.5"><i class="fa-solid fa-lock text-red-500"></i> Grátis</li>
+          </ul>
+
+          <p id="releaseHint" class="mt-4 text-center text-[11px] font-medium text-stone-400"></p>
         </div>
-        <div>
-          <label class="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">Link de Backup (Release Page)</label>
-          <input type="text" id="backupUrlInput" class="w-full text-xs p-3 border border-stone-300 rounded-xl bg-white focus:outline-none focus:border-red-500 text-stone-700 font-mono" value="https://github.com/Aliucord/Manager/releases/tag/v1.3.0">
+
+        <!-- BOTÃO PRINCIPAL: download direto -->
+        <div class="mt-9">
+          <a id="btnDownload"
+             href="https://github.com/Aliucord/Manager/releases/download/v1.3.0/aliucord-manager-v1.3.0.apk"
+             target="_blank" rel="noopener"
+             class="sheen group relative flex w-full items-center justify-center gap-4 overflow-hidden rounded-2xl bg-gradient-to-r from-red-600 to-red-700 px-6 py-5 text-white shadow-xl shadow-red-600/30 transition duration-200 hover:-translate-y-0.5 hover:from-red-500 hover:to-red-700 hover:shadow-2xl hover:shadow-red-600/40 focus:outline-none focus-visible:ring-4 focus-visible:ring-red-300 active:translate-y-0">
+
+            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white/15 text-xl ring-1 ring-white/25 transition group-hover:scale-110">
+              <i class="fa-solid fa-download"></i>
+            </span>
+
+            <span class="min-w-0 text-left">
+              <span id="btnTitle" class="block text-lg font-extrabold leading-tight tracking-tight">Baixar APK agora</span>
+              <span id="btnSub" class="mt-0.5 block text-xs font-medium text-white/80">Download direto · aliucord-manager-v1.3.0.apk</span>
+            </span>
+
+            <i class="fa-solid fa-arrow-right ml-auto hidden shrink-0 text-sm text-white/70 transition group-hover:translate-x-1 sm:block"></i>
+          </a>
+
+          <!-- Segunda opção: GitHub -->
+          <a id="githubLink" href="https://github.com/Aliucord/Manager/releases/tag/v1.3.0" target="_blank" rel="noopener"
+             class="mt-3 flex w-full items-center justify-center gap-3 rounded-2xl border border-stone-200 bg-stone-50 px-5 py-4 text-sm font-semibold text-stone-700 transition hover:border-stone-300 hover:bg-stone-100 focus:outline-none focus-visible:ring-4 focus-visible:ring-stone-200">
+            <i class="fa-brands fa-github text-lg"></i>
+            <span>Abrir a página de releases no GitHub</span>
+            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-stone-400"></i>
+          </a>
+
+          <p class="mt-4 text-center text-xs leading-relaxed text-stone-400">
+            O Android pode pedir permissão para instalar apps de fontes desconhecidas.
+            <span class="text-stone-500">É normal para APKs fora da Play Store.</span>
+          </p>
         </div>
-        <button onclick="updateUrls()" class="w-full py-2 bg-stone-900 text-white text-xs font-semibold rounded-xl hover:bg-black transition">Salvar Alterações</button>
-      </div>
 
-      <div class="space-y-3">
-        <button onclick="iniciarDownload()" class="btn-red-pulse w-full py-4 bg-red-600 hover:bg-red-700 text-white font-bold rounded-2xl flex items-center justify-center gap-3 transition shadow-lg shadow-red-200 cursor-pointer">
-          <i class="fa-solid fa-download text-lg"></i>
-          <span id="btnText">Baixar APK Agora</span>
-        </button>
-
-        <a id="backupBtn" href="https://github.com/Aliucord/Manager/releases/tag/v1.3.0" target="_blank" class="w-full py-3 bg-stone-100 hover:bg-stone-200 text-stone-700 font-semibold rounded-2xl flex items-center justify-center gap-2 text-sm transition">
-          <i class="fa-brands fa-github"></i>
-          <span>Abrir Página de Releases (GitHub)</span>
-        </a>
+        <!-- Aviso de fallback (aparece se o navegador bloquear o download direto) -->
+        <div id="alertaFallback"
+             class="mt-6 hidden rounded-2xl border border-amber-200 bg-amber-50 p-4 text-left">
+          <div class="flex items-start gap-3">
+            <i class="fa-solid fa-circle-exclamation mt-0.5 text-amber-500"></i>
+            <div class="text-sm">
+              <p class="font-bold text-amber-900">O download não começou?</p>
+              <p class="mt-1 leading-relaxed text-amber-800">
+                Alguns navegadores bloqueiam links diretos de APK. O arquivo também está disponível na
+                <a id="githubFallbackLink" class="font-bold underline decoration-amber-400 underline-offset-2 hover:text-amber-900"
+                   href="https://github.com/Aliucord/Manager/releases/tag/v1.3.0" target="_blank" rel="noopener">página oficial de releases</a>
+                — basta procurar o item <span id="fallbackFile" class="font-mono text-xs">aliucord-manager-v1.3.0.apk</span>.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
+
+    <!-- Passos -->
+    <section class="mt-10">
+      <h3 class="mb-4 text-center text-sm font-bold uppercase tracking-widest text-stone-400">Como instalar</h3>
+      <div class="grid gap-3 sm:grid-cols-3">
+        <div class="rounded-2xl border border-stone-200 bg-white p-5 transition hover:-translate-y-0.5 hover:border-stone-300">
+          <div class="mb-3 flex h-8 w-8 items-center justify-center rounded-lg bg-red-50 text-xs font-black text-red-600">1</div>
+          <p class="text-sm font-bold text-stone-900">Baixe o APK</p>
+          <p class="mt-1 text-xs leading-relaxed text-stone-500">Toque no botão vermelho e aguarde o arquivo terminar de baixar.</p>
+        </div>
+        <div class="rounded-2xl border border-stone-200 bg-white p-5 transition hover:-translate-y-0.5 hover:border-stone-300">
+          <div class="mb-3 flex h-8 w-8 items-center justify-center rounded-lg bg-red-50 text-xs font-black text-red-600">2</div>
+          <p class="text-sm font-bold text-stone-900">Permita a instalação</p>
+          <p class="mt-1 text-xs leading-relaxed text-stone-500">Nas configurações do Android, libere a instalação para o seu navegador.</p>
+        </div>
+        <div class="rounded-2xl border border-stone-200 bg-white p-5 transition hover:-translate-y-0.5 hover:border-stone-300">
+          <div class="mb-3 flex h-8 w-8 items-center justify-center rounded-lg bg-red-50 text-xs font-black text-red-600">3</div>
+          <p class="text-sm font-bold text-stone-900">Abra o Manager</p>
+          <p class="mt-1 text-xs leading-relaxed text-stone-500">Pronto: siga as instruções do app para instalar o Aliucord.</p>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <footer class="py-6 text-center text-xs text-stone-400 border-t border-stone-200">
-    <p>© 2026 Infinity Tools. Todos os direitos reservados.</p>
+  <!-- ================= RODAPÉ ================= -->
+  <footer class="border-t border-stone-200 bg-white/60">
+    <div class="mx-auto flex max-w-3xl flex-col items-center gap-2 px-4 py-7 text-center">
+      <div class="flex items-center gap-2 text-xs font-semibold text-stone-500">
+        <i class="fa-solid fa-infinity text-red-600"></i> Infinity Tools
+      </div>
+      <p class="text-xs text-stone-400">© 2026 Infinity Tools. Todos os direitos reservados.</p>
+      <p class="text-[11px] text-stone-400">Distribuição não oficial do Aliucord Manager. Código-fonte disponível em github.com/Aliucord.</p>
+    </div>
   </footer>
 
   <script>
-    let directUrl = "https://release-assets.githubusercontent.com/github-production-release-asset/386777925/f4cec701-55e8-44ab-8a25-66a4f15c81aa?sp=r&sv=2018-11-09&sr=b&spr=https&se=2026-11-05T17%3A50%3A40Z&rscd=attachment%3B+filename%3Daliucord-manager-v1.3.0.apk&rsct=application%2Fvnd.android.package-archive&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2026-11-05T16%3A49%3A54Z&ske=2026-11-05T17%3A50%3A40Z&sks=b&skv=2018-11-09&sig=GVyzac9%2BevuGABjsfg3lc9HPEvhxSD50gajSih8Ge5M%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc5Mzg5Nzc2MywibmJmIjoxNzkzODk3NDYzLCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.bA6ZOM_aUwOUYRUKoQPUdOoqpFHu8r_rV7tScZ47HVU&response-content-disposition=attachment%3B%20filename%3Daliucord-manager-v1.3.0.apk&response-content-type=application%2Fvnd.android.package-archive";
-    let backupUrl = "https://github.com/Aliucord/Manager/releases/tag/v1.3.0";
+    (function () {
+      const REPO = 'Aliucord/Manager';
+      const API  = 'https://api.github.com/repos/' + REPO + '/releases/latest';
+      const el   = (id) => document.getElementById(id);
 
-    function toggleConfig() {
-      document.getElementById('configPanel').classList.toggle('hidden');
-    }
+      const botao  = el('btnDownload');
+      const alerta = el('alertaFallback');
 
-    function updateUrls() {
-      directUrl = document.getElementById('urlInput').value;
-      backupUrl = document.getElementById('backupUrlInput').value;
-      document.getElementById('backupBtn').href = backupUrl;
-      alert('Links atualizados com sucesso!');
-      toggleConfig();
-    }
+      // Textos originais: servem de reserva se o GitHub não responder
+      const defaults = {
+        title: el('btnTitle').textContent,
+        sub:   el('btnSub').textContent
+      };
 
-    function iniciarDownload() {
-      const btnText = document.getElementById('btnText');
-      btnText.innerText = "Iniciando...";
+      let timer = null;
 
-      // Tenta abrir o link direto
-      const win = window.open(directUrl, '_blank');
+      /* ---------- 1. Download: feedback e aviso de alternativa ---------- */
+      botao.addEventListener('click', function () {
+        el('btnTitle').textContent = 'Iniciando download...';
+        el('btnSub').textContent = 'Se nada acontecer, use a opção do GitHub abaixo';
+        botao.classList.add('opacity-90', 'pointer-events-none');
 
-      // Caso o navegador bloqueie popup ou a URL direta dê erro/expire
-      setTimeout(() => {
-        btnText.innerText = "Baixar APK Agora";
-      }, 3000);
-    }
+        clearTimeout(timer);
+
+        // Se em 6s o arquivo não tiver começado, oferece a alternativa
+        timer = setTimeout(function () {
+          el('btnTitle').textContent = defaults.title;
+          el('btnSub').textContent = defaults.sub;
+          botao.classList.remove('opacity-90', 'pointer-events-none');
+          alerta.classList.remove('hidden');
+          alerta.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 6000);
+      });
+
+      /* ---------- 2. Versão mais recente, direto da API do GitHub ---------- */
+      const ehDoGithub = (url) =>
+        typeof url === 'string' && url.indexOf('https://github.com/') === 0 ? url : null;
+
+      function acharApk(assets) {
+        const lista = Array.isArray(assets) ? assets : [];
+        const apks = lista.filter(function (a) {
+          return /\.apk$/i.test(a.name || '') || a.content_type === 'application/vnd.android.package-archive';
+        });
+        return apks.filter(function (a) { return /manager/i.test(a.name || ''); })[0] || apks[0] || null;
+      }
+
+      function tamanho(bytes) {
+        if (!bytes || bytes < 0) return '';
+        const mb = bytes / 1048576;
+        return mb >= 1
+          ? mb.toFixed(1).replace('.', ',') + ' MB'
+          : Math.max(1, Math.round(bytes / 1024)) + ' KB';
+      }
+
+      function data(iso) {
+        if (!iso) return '';
+        const d = new Date(iso);
+        return isNaN(d.getTime()) ? '' : d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+      }
+
+      function aplicar(release) {
+        if (!release || typeof release !== 'object') return;
+
+        const tag  = String(release.tag_name || '').trim();
+        const apk  = acharApk(release.assets);
+        const apkUrl = apk ? ehDoGithub(apk.browser_download_url) : null;
+        const pageUrl = ehDoGithub(release.html_url) ||
+          (tag ? 'https://github.com/' + REPO + '/releases/tag/' + tag : null);
+
+        // Versão exibida
+        if (tag) {
+          el('releaseTag').textContent = tag;
+          el('metaVersion').textContent = tag.replace(/^v/i, '');
+        }
+
+        // Botão principal aponta para o APK mais recente
+        if (apkUrl) {
+          const size = tamanho(apk.size);
+          const nome = apk.name || 'aliucord-manager.apk';
+
+          botao.href = apkUrl;
+          defaults.sub = nome + (size ? ' · ' + size : '');
+          el('btnSub').textContent = defaults.sub;
+          el('fallbackFile').textContent = nome;
+
+          if (size) {
+            el('metaSize').textContent = size;
+            el('sizeItem').style.display = 'inline-flex';
+          }
+        } else if (pageUrl) {
+          // Sem APK identificado: manda para a página da versão
+          botao.href = pageUrl;
+          defaults.title = tag ? 'Abrir a versão ' + tag : defaults.title;
+          defaults.sub = 'Arquivos disponíveis na página do GitHub';
+          el('btnTitle').textContent = defaults.title;
+          el('btnSub').textContent = defaults.sub;
+        }
+
+        // Botões do GitHub (secundário e do aviso)
+        if (pageUrl) {
+          el('githubLink').href = pageUrl;
+          el('githubFallbackLink').href = pageUrl;
+        }
+
+        // Selo de confiança
+        const publicada = data(release.published_at);
+        el('releaseHint').textContent = publicada
+          ? 'Versão mais recente confirmada no GitHub · publicada em ' + publicada
+          : 'Versão mais recente confirmada no GitHub';
+      }
+
+      fetch(API, { headers: { Accept: 'application/vnd.github+json' }, cache: 'no-store' })
+        .then(function (r) {
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          return r.json();
+        })
+        .then(aplicar)
+        .catch(function () {
+          // GitHub indisponível ou limite de consultas atingido:
+          // a página continua funcionando com o link fixo da v1.3.0.
+        });
+    })();
   </script>
 </body>
 </html>
